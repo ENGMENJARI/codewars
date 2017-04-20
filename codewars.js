@@ -506,3 +506,199 @@ function greatestCommonFactor(array) {
   return gcf
 };
 
+function missingNumber(arr){
+  var n = arr.length+1;
+  var sum = 0;
+ var expectedSum = n* (n+1)/2;
+  
+  for(var i = 0 ; i < arr.length; i++){
+    sum += arr[i];
+  }
+  
+  return expectedSum - sum;
+}
+
+
+function sumFinder(arr, sum){
+  var len = arr.length;
+  
+  for(var i =0; i<len-1; i++){  
+     for(var j = i+1;j<len; j++){
+        if (arr[i] + arr[j] == sum)
+            return true;
+     }
+  }
+  
+  return false;
+}
+//Interviewer: What is the time complexity of this function
+
+ //You: O(n2)
+ /*nterviewer: Can you make this better
+
+You: Let me see. I can have an object where i will
+ store the difference of sum and element. And then
+  when i get to a new element and if i 
+  find the difference is the object,
+ then i have a pair that sums up to the desired sum. */
+ function sumFinder(arr, sum){
+  var differ = {};
+  var len = arr.length;
+  var substract;
+  
+  for(var i =0; i<len; i++){
+     substract = sum - arr[i];
+
+     if(differ[substract]){
+       return true;       
+     }
+     else{
+       differ[arr[i]] = true;
+     }
+  }
+  
+  return false;
+}
+//Largest Sum
+//Question: How would you find the largest sum of any two elements?
+
+//Answer: this is actually very simple and straight forward. Just find the two largest number and return sum of them
+
+
+function topSum(arr){
+  
+  var biggest = arr[0], 
+      second = arr[1], 
+      len = arr.length, 
+      i = 2;
+
+  if (len<2) return null;
+  
+  if (biggest<second){
+    biggest = arr[1];
+    second = arr[0];
+  } 
+  
+  for(; i<len; i++){
+
+   if(arr[i] > biggest){
+      second = biggest;
+      biggest = arr[i];
+    }
+   else if (arr[i]>second){
+      second = arr[i];
+   }
+    
+ }
+ return biggest + second;
+}
+/*Counting Zeros
+Question: Count Total number of zeros from 1 upto n?
+
+Answer: If n = 50. 
+number of 0 would be 11 
+(0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100).
+ Please note that 100 has two 0. 
+ This one looks simple but little tricky
+
+Explanation: So the tick here is. 
+if you have a number 1 to 50 the value is 5.
+ just 50 divided by 10. However,
+  if the value is 100. the value is 11. 
+  you will get by 100/10 = 10 and 10/10. 
+  Thats how you will get in the more zeros
+   in one number like (100, 200, 1000) */
+
+
+function countZero(n){
+  var count = 0;
+  while(n>0){
+   count += Math.floor(n/10);
+   n = n/10;
+  }
+  return count;
+}
+
+function reverse(str){
+  var rtnStr = '';
+  for(var i = str.length-1; i>=0;i--){
+    rtnStr +=str[i];
+  }
+  return rtnStr;
+}
+
+// reverse('you are a nice dude');
+  //= "edud ecin a era uoy"
+
+  function reverse (str) {
+    if (str === "") {
+        return "";
+    } else {
+        return reverse(str.substr(1)) + str.charAt(0);
+    }
+} 
+function reverse(str){
+  if(!str || str.length <2) return str;
+  
+  return str.split('').reverse().join('');
+}
+//Question: Can you make reverse function as string extension?
+
+//Answer: I need to add this function to the 
+//String.prototype and instead of using str
+// as parameter, i need to use this
+
+
+String.prototype.reverse = function (){
+  if(!this || this.length <2) return this;
+  
+  return this.split('').reverse().join('');
+}
+
+//'abc'.reverse();
+  // 'cba'   
+  //reverse in place
+/*Question: If you have a string like
+ "I am the good boy". How can you 
+ generate "I ma eht doog yob"? Please note
+ that the words are in place but reverse.
+
+Answer: To do this, i have to do both string 
+reverse and word reverse.*/
+
+
+function reverseInPlace(str){
+  return str.split(' ').reverse().join(' ').split('').reverse().join('');
+}
+
+//reverseInPlace('I am the good boy');
+ //"I ma eht doog yob"
+          
+
+function removeDuplicateChar(str){
+  var len = str.length,
+      char, 
+      charCount = {}, 
+      newStr = [];
+  for(var i =0; i<len; i++){
+    char = str[i];
+    if(charCount[char]){
+      charCount[char]++;
+    }
+    else
+      charCount[char] = 1;
+  }
+  for (var j in charCount){
+    if (charCount[j]==1)
+       newStr.push(j);
+  }
+  return newStr.join('');
+}
+
+function isPalindrome(str){
+  if(str===str.reverse()){
+    return true
+  }else{
+    return false
+  }
+  }
